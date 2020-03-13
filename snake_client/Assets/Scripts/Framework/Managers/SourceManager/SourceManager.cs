@@ -1,18 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SourceManager : MonoBehaviour
+public class SourceManager : Singleton<SourceManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Init()
     {
-        
+        base.Init();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LoadAsset<T>(string assetPath, System.Action<T> callback) where T : Object
     {
-        
+        T assetObj = Resources.Load<T>(assetPath);
+        callback?.Invoke(assetObj);
     }
 }
