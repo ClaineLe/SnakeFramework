@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatchManager : MonoBehaviour
+public class PatchController : IController
 {
     // Start is called before the first frame update
     void Start()
