@@ -1,7 +1,5 @@
 using System;
 
-namespace HaloFramework.Runtime
-{
     public class AutoSingletonAttribute : Attribute
     {
         public bool bAutoCreate;
@@ -11,4 +9,3 @@ namespace HaloFramework.Runtime
             this.bAutoCreate = bCreate;
         }
     }
-}

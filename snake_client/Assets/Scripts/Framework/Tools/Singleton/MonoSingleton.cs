@@ -1,7 +1,5 @@
 using UnityEngine;
 
-namespace HaloFramework.Runtime
-{
     [AutoSingleton(true)]
     public class MonoSingleton<T> : MonoBehaviour where T : Component
     {
@@ -96,4 +94,3 @@ namespace HaloFramework.Runtime
         {
         }
     }
-}
