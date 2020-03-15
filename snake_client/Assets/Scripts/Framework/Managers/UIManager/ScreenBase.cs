@@ -25,7 +25,6 @@ public class ScreenBase
 
     private void PanelLoadComplete(GameObject go) 
     {
-        Debug.Log(go);
         this.mPanelRoot = GameObject.Instantiate(go, Singleton<UIManager>.GetInstance().GetCanvasRootTransform()).transform as RectTransform;
         this.mCtrlBase = this.mPanelRoot.GetComponent<UICtrlBase>();
         this.OnLoadSuccess();
@@ -43,6 +42,6 @@ public class ScreenBase
 
     virtual public void Dispose()
     {
-        GameObject.Destroy(mPanelRoot);
+        GameObject.Destroy(mPanelRoot.gameObject);
     }
 }
