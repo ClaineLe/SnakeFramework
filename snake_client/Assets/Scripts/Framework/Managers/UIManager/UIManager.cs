@@ -66,6 +66,8 @@ public class UIManager : Singleton<UIManager>
 
         screenBase.mPanelRoot.anchorMin = Vector3.zero;
         screenBase.mPanelRoot.anchorMax = Vector3.one;
+        screenBase.mPanelRoot.anchoredPosition = Vector3.zero;
+        screenBase.mPanelRoot.sizeDelta = Vector3.zero;
         screenBase.mPanelRoot.transform.localScale = Vector3.one;
         screenBase.mPanelRoot.transform.localRotation = Quaternion.identity;
         screenBase.mPanelRoot.name = screenBase.mPanelRoot.name.Replace("(Clone)", string.Empty);
