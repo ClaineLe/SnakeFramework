@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UICtrlBase : MonoBehaviour
+public class UICtrlBase : UIEventAutoRelease
 {
     [HideInInspector]
     public Canvas ctrlCanvas;
