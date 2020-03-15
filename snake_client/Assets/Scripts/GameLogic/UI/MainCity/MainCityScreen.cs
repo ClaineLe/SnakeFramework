@@ -24,6 +24,6 @@ public class MainCityScreen : ScreenBase
     }
 
     private void OnGuildClick() {
-        Debug.Log("OnGuildClick");
+        Singleton<UIManager>.GetInstance().OpenUI(typeof(GuildScreen));
     }
 }
