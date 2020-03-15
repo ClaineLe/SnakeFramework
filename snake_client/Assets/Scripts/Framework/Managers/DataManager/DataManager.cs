@@ -20,5 +20,6 @@ public class DataManager : Singleton<DataManager>
     public void SetHaveGuild(bool haveGuild)
     {
         this.mBHasGuild = haveGuild;
+        Singleton<EventManager>.GetInstance().OnGuildCreated.BroadCastEvent(this.mBHasGuild);
     }
 }
