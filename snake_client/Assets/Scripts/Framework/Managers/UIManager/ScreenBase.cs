@@ -11,9 +11,36 @@ public class ScreenBase
 
     protected UIOpenParamBase mOpenParam;
 
+
+    public int mOpenOrder = 0;//界面打开顺序
+    public int mSortingLayer = 0;//界面层级
+
     public ScreenBase(string UIName, UIOpenParamBase param = null)
     {
         StartLoad(UIName, param);
+    }
+
+    public void SetOpenOrder(int openOrder)
+    {
+        this.mOpenOrder = openOrder;
+        if (mCtrlBase != null && mCtrlBase.ctrlCanvas != null)
+        {
+            this.mCtrlBase.ctrlCanvas.sortingOrder = openOrder;
+        }
+    }
+
+    private void UpdateLayoutLevel()
+    {
+        Camera camera = Singleton<UIManager>.GetInstance().GetUICamera();
+        if (camera != null)
+        {
+            this.mCtrlBase.ctrlCanvas.worldCamera = camera;
+        }
+
+        this.mCtrlBase.ctrlCanvas.overrideSorting = true;
+        this.mCtrlBase.ctrlCanvas.sortingLayerID = (int)mCtrlBase.screenPriority;
+        this.mSortingLayer = (int)mCtrlBase.screenPriority;
+        this.mCtrlBase.ctrlCanvas.sortingOrder = mOpenOrder;
     }
 
     virtual public void StartLoad(string UIName, UIOpenParamBase param = null)
@@ -27,6 +54,7 @@ public class ScreenBase
     {
         this.mPanelRoot = GameObject.Instantiate(go, Singleton<UIManager>.GetInstance().GetCanvasRootTransform()).transform as RectTransform;
         this.mCtrlBase = this.mPanelRoot.GetComponent<UICtrlBase>();
+        this.UpdateLayoutLevel();
         this.OnLoadSuccess();
         Singleton<UIManager>.GetInstance().AddUI(this);
     }

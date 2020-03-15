@@ -10,6 +10,9 @@ public class UIManager : Singleton<UIManager>
     private GameObject uiRoot;
     private GameObject canvasRoot;
     private Camera uiCamera;
+
+    public int mUIOpenOrder = 0;//UI打开时，Order值，用来标识界面层级顺序
+
     public override void Init()
     {
         base.Init();
@@ -29,6 +32,8 @@ public class UIManager : Singleton<UIManager>
     public ScreenBase OpenUI(Type type, UIOpenParamBase param = null)
     {
         ScreenBase screenBase = this.GetUI(type);
+        ++mUIOpenOrder;
+
         if (screenBase != null){
             if (screenBase != null && !screenBase.CtrlBase.ctrlCanvas.enabled) {
                 screenBase.CtrlBase.ctrlCanvas.enabled = true;
@@ -37,6 +42,7 @@ public class UIManager : Singleton<UIManager>
         }
         screenBase = (ScreenBase)System.Activator.CreateInstance(type, param);
         this.mTypeScreens.Add(type, screenBase);
+        screenBase.SetOpenOrder(mUIOpenOrder);
         return screenBase;
     }
     public ScreenBase GetUI(Type type)
@@ -77,5 +83,11 @@ public class UIManager : Singleton<UIManager>
         if (mTypeScreens.ContainsKey(screenBase.GetType()))  // 根据具体需求决定到底是直接销毁还是缓存
             mTypeScreens.Remove(screenBase.GetType());
         screenBase.Dispose();
+    }
+
+
+    public Camera GetUICamera()
+    {
+        return uiCamera;
     }
 }
