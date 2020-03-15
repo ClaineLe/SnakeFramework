@@ -2,17 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : MonoBehaviour
+public class EventManager : Singleton<EventManager>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Event<bool> OnGuildCreated = new Event<bool>();   //创建公会成功
 }
