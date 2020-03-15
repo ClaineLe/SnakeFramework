@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public class DataManager : Singleton<DataManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Init()
     {
-        
+        base.Init();
+
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private bool mBHasGuild = false;
+    public bool HaveGuild() 
     {
-        
+        return this.mBHasGuild;
+    }
+
+    public void SetHaveGuild(bool haveGuild)
+    {
+        this.mBHasGuild = haveGuild;
     }
 }
