@@ -14,6 +14,7 @@ public class GameFramework : MonoSingleton<GameFramework>
 
     private void InitManagers()
     {
+        Singleton<DataManager>.CreateInstance();
         Singleton<CameraManager>.CreateInstance();
         Singleton<UIManager>.CreateInstance();
     }
