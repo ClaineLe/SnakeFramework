@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataManager : Singleton<DataManager>
+public class DataManager : BaseManager<DataManager>
 {
     public override void Init()
     {

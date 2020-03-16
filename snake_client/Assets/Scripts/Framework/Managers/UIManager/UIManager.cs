@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Type = System.Type;
 
-public class UIManager : Singleton<UIManager>
+public class UIManager : BaseManager<UIManager>
 {
     private Dictionary<Type, ScreenBase> mTypeScreens;
 
@@ -31,6 +31,19 @@ public class UIManager : Singleton<UIManager>
             this.uiMask = assetObj;
         });
     }
+
+    /*
+    // 预制分辨率
+    static Vector2Int ScreenResolution = new Vector2Int(1136,640);
+    void Update()
+    {
+        if (ScreenResolution.x != Screen.width || ScreenResolution.y != Screen.height)
+        {
+            ScreenResolution = new Vector2Int(Screen.width, Screen.height);
+            EventManager.ScreenResolutionEvt.BroadCastEvent(ScreenResolution);
+        }
+    }
+         */
 
     public void SetupMask(ScreenBase screenBase) {
         if (screenBase == null || screenBase.CtrlBase == null)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraManager : Singleton<CameraManager>
+public class CameraManager : BaseManager<CameraManager>
 {
     private Camera mMainCamera;
     public override void Init()
