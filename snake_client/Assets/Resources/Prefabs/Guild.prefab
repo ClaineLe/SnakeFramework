@@ -1686,7 +1686,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u529F\u80FD1"
+  m_Text: "\u4EFB\u52A1"
 --- !u!1 &2635323500241962898
 GameObject:
   m_ObjectHideFlags: 0
@@ -2645,6 +2645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btnClose: {fileID: 4928092025362651845}
+  btnJumpTask: {fileID: 2579034760640595711}
 --- !u!222 &3564345473863309720
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5364,6 +5365,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ctrlCanvas: {fileID: 0}
   screenPriority: 20
+  m_UseMask: 1
+  mAlwaysShow: 0
+  mHideOtherScreenWhenThisOnTop: 0
   subCreate: {fileID: 15783}
   subInfo: {fileID: 15782}
 --- !u!223 &-6080972117581344356

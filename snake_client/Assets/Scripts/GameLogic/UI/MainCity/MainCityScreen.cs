@@ -21,9 +21,15 @@ public class MainCityScreen : ScreenBase
         this.mCtrl = this.mCtrlBase as MainCityCtrl;
 
         this.mCtrl.btnGuild.onClick.AddListener(OnGuildClick);
+        this.mCtrl.btnTask.onClick.AddListener(OnTaskClick);
     }
 
-    private void OnGuildClick() {
+    private void OnGuildClick()
+    {
         Singleton<UIManager>.GetInstance().OpenUI(typeof(GuildScreen));
+    }
+    private void OnTaskClick()
+    {
+        Singleton<UIManager>.GetInstance().OpenUI(typeof(TaskScreen));
     }
 }

@@ -15,10 +15,16 @@ public class GuildInfoSubScreen : SubScreenBase
     {
         mCtrl = mCtrlBase as GuildInfoSubCtrl;
         mCtrl.btnClose.onClick.AddListener(OnCloseClick);
+        mCtrl.btnJumpTask.onClick.AddListener(OnOpenTaskClick);
     }
 
     void OnCloseClick()
     {
         Singleton<UIManager>.GetInstance().CloseUI(typeof(GuildScreen));
+    }
+
+    void OnOpenTaskClick()
+    {
+        Singleton<UIManager>.GetInstance().OpenUI(typeof(TaskScreen));
     }
 }

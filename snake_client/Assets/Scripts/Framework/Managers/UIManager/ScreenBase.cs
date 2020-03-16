@@ -60,12 +60,17 @@ public class ScreenBase
     }
 
     virtual protected void OnLoadSuccess() {
-    
+        if (mCtrlBase.m_UseMask)
+            Singleton<UIManager>.GetInstance().SetupMask(this);
     }
 
     virtual public void OnClose()
     {
         Singleton<UIManager>.GetInstance().RemoveUI(this);
+    }
+
+    virtual public void OnClickMaskArea() {
+        this.OnClose();
     }
 
     virtual public void Dispose()

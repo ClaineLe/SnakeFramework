@@ -588,6 +588,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ctrlCanvas: {fileID: 0}
   screenPriority: 20
+  m_UseMask: 0
+  mAlwaysShow: 1
+  mHideOtherScreenWhenThisOnTop: 0
   txtLv: {fileID: 8160839055572238119}
   btnGuild: {fileID: 1301613136}
   btnTask: {fileID: 4645324294785900407}
