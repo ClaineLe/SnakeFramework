@@ -16,7 +16,7 @@ public class GuildScreen : ScreenBase
         base.OnLoadSuccess();
         mCtrl = mCtrlBase as GuildCtrl;
 
-        mCtrl.AutoRelease(Singleton<EventManager>.GetInstance().OnGuildCreated.Subscribe(this.OnGuildCreated));
+        mCtrl.AutoRelease(EventHub.OnGuildCreated.Subscribe(this.OnGuildCreated));
         // 有公会就打开公会详情 没有就打开创建界面
         bool bHaveGuild = Singleton<DataManager>.GetInstance().HaveGuild();
         this.OnGuildCreated(bHaveGuild);
