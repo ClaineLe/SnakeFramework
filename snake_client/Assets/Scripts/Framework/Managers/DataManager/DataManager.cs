@@ -20,6 +20,6 @@ public class DataManager : BaseManager<DataManager>
     public void SetHaveGuild(bool haveGuild)
     {
         this.mBHasGuild = haveGuild;
-        EventHub.OnGuildCreated.BroadCastEvent(this.mBHasGuild);
+        EventDefine.OnGuildCreated.BroadCastEvent(this.mBHasGuild);
     }
 }
