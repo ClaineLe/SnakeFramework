@@ -25,7 +25,7 @@ public class UICtrlBase : UIController
         BindControls();
     }
 
-    public virtual void BindControls() 
+    protected virtual void BindControls() 
     {
 
     }
