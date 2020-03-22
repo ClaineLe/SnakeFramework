@@ -9,13 +9,17 @@ public class GameFramework : MonoSingleton<GameFramework>
     {
         this.InitManagers();
 
-        Singleton<UIManager>.GetInstance().OpenUI(typeof(MainCityScreen));
+        Singleton<LuaManager>.GetInstance().StartUp();
+        //Singleton<UIManager>.GetInstance().OpenUI(typeof(MainCityScreen));
     }
 
     private void InitManagers()
     {
-        Singleton<DataManager>.CreateInstance();
-        Singleton<CameraManager>.CreateInstance();
-        Singleton<UIManager>.CreateInstance();
+        //Singleton<DataManager>.CreateInstance();
+        //Singleton<CameraManager>.CreateInstance();
+        //Singleton<UIManager>.CreateInstance();
+
+
+        
     }
 }
