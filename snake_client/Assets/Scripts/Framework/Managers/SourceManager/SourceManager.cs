@@ -12,4 +12,8 @@ public class SourceManager : Singleton<SourceManager>
         T assetObj = Resources.Load<T>(assetPath);
         callback?.Invoke(assetObj);
     }
+
+    public byte[] LoadCustomData(string filePath, string suffix) {
+        return System.IO.File.ReadAllBytes("../Luacode/" + filePath.Replace('.', '/') + suffix);
+    }
 }
