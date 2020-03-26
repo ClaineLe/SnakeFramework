@@ -20,11 +20,11 @@ public class GuildInfoSubScreen : SubScreenBase
 
     void OnCloseClick()
     {
-        Singleton<UIManager>.GetInstance().CloseUI(typeof(GuildScreen));
+        Singleton<UIManager>.GetInstance().CloseUI(UIConst.UIGuild);
     }
 
     void OnOpenTaskClick()
     {
-        Singleton<UIManager>.GetInstance().OpenUI(typeof(TaskScreen));
+        Singleton<UIManager>.GetInstance().OpenUI(UIConst.UITask);
     }
 }

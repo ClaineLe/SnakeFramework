@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XLua;
 
 public class ScreenBase
 {
@@ -50,11 +51,25 @@ public class ScreenBase
         Singleton<SourceManager>.GetInstance().LoadAsset<GameObject>("Prefabs/" + UIName, PanelLoadComplete);
     }
 
+    private ILuaScreenInterface screenInterface;
+    private void BindLuaScreen() {
+        string luaFileName = string.Format("{0}Screen", this.mStrUIName);
+        string luaPath = string.Format("UI/Screen/{0}/{1}", this.mStrUIName, luaFileName);
+        byte[] luaBytes = Singleton<SourceManager>.GetInstance().LoadCustomData(luaPath, ".lua");
+        LuaManager luaMgr = Singleton<LuaManager>.GetInstance();
+        luaMgr.DoString(luaBytes, this.mStrUIName);
+        screenInterface = luaMgr.GetLuaInterface<ILuaScreenInterface>(null, luaFileName);
+        screenInterface.LoadSuccess(this.mPanelRoot.gameObject, luaPath);
+    }
+
+
+
     private void PanelLoadComplete(GameObject go) 
     {
         this.mPanelRoot = GameObject.Instantiate(go, Singleton<UIManager>.GetInstance().GetCanvasRootTransform()).transform as RectTransform;
         this.mCtrlBase = this.mPanelRoot.GetComponent<UICtrlBase>();
         this.UpdateLayoutLevel();
+        this.BindLuaScreen();
         this.OnLoadSuccess();
         Singleton<UIManager>.GetInstance().AddUI(this);
     }
@@ -66,7 +81,7 @@ public class ScreenBase
 
     virtual public void OnClose()
     {
-        Singleton<UIManager>.GetInstance().RemoveUI(this);
+        Singleton<UIManager>.GetInstance().RemoveUI(this.mStrUIName);
     }
 
     virtual public void OnClickMaskArea() {
@@ -75,6 +90,7 @@ public class ScreenBase
 
     virtual public void Dispose()
     {
+        screenInterface.Release();
         GameObject.Destroy(mPanelRoot.gameObject);
     }
 }

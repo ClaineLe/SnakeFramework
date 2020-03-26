@@ -1,6 +1,6 @@
 ILuaFrameworkInterface = {
-	Launch = function (self)
-		Framework.Launch()
+	Launch = function (self, gameFacade)
+		Framework.Launch(gameFacade)
 	end,
 }
 

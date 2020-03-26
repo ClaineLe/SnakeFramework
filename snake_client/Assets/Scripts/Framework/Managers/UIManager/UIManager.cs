@@ -6,7 +6,7 @@ using Type = System.Type;
 
 public class UIManager : BaseManager<UIManager>
 {
-    private Dictionary<Type, ScreenBase> mTypeScreens;
+    private Dictionary<string, ScreenBase> mTypeScreens;
 
     private GameObject uiRoot;
     private GameObject canvasRoot;
@@ -17,7 +17,7 @@ public class UIManager : BaseManager<UIManager>
     public override void Init()
     {
         base.Init();
-        this.mTypeScreens = new Dictionary<Type, ScreenBase>();
+        this.mTypeScreens = new Dictionary<string, ScreenBase>();
         Singleton<SourceManager>.GetInstance().LoadAsset<GameObject>("Prefabs/UIRoot", assetObj => {
             this.uiRoot = GameObject.Instantiate(assetObj);
             this.uiCamera = this.uiRoot.transform.Find("UICamera").GetComponent<Camera>();
@@ -62,9 +62,9 @@ public class UIManager : BaseManager<UIManager>
     public Transform GetCanvasRootTransform() {
         return this.canvasRoot.transform;
     }
-    public ScreenBase OpenUI(Type type, UIOpenParamBase param = null)
+    public ScreenBase OpenUI(string screenName, UIOpenParamBase param = null)
     {
-        ScreenBase screenBase = this.GetUI(type);
+        ScreenBase screenBase = this.GetUI(screenName);
         ++mUIOpenOrder;
 
         if (screenBase != null) {
@@ -73,8 +73,8 @@ public class UIManager : BaseManager<UIManager>
             }
             return screenBase;
         }
-        screenBase = (ScreenBase)System.Activator.CreateInstance(type, param);
-        this.mTypeScreens.Add(type, screenBase);
+        screenBase = new ScreenBase(screenName, param);
+        this.mTypeScreens.Add(screenName, screenBase);
         screenBase.SetOpenOrder(mUIOpenOrder);
 
         if (screenBase.CtrlBase.mHideOtherScreenWhenThisOnTop)
@@ -141,23 +141,19 @@ public class UIManager : BaseManager<UIManager>
 
     }
 
-    public ScreenBase GetUI(Type type)
+    public ScreenBase GetUI(string screenName)
     {
-        if (!typeof(ScreenBase).IsAssignableFrom(type)) return default;
         ScreenBase screenBase = null;
-        if (mTypeScreens.TryGetValue(type, out screenBase))
+        if (mTypeScreens.TryGetValue(screenName, out screenBase))
             return screenBase;
         return null;
     }
-    public bool CloseUI(Type type)
+    public bool CloseUI(string screenName)
     {
-        ScreenBase screenBase = GetUI(type);
+        ScreenBase screenBase = GetUI(screenName);
         if (screenBase != null)
         {
-            if (type == typeof(ScreenBase))     // 标尺界面是测试界面 不用关闭
-                return false;
-            else
-                screenBase.OnClose();
+            screenBase.OnClose();
             return true;
         }
         return false;
@@ -175,12 +171,12 @@ public class UIManager : BaseManager<UIManager>
         screenBase.mPanelRoot.name = screenBase.mPanelRoot.name.Replace("(Clone)", string.Empty);
 
     }
-    public void RemoveUI(ScreenBase screenBase)
+    public void RemoveUI(string screenName)
     {
-        if (mTypeScreens.ContainsKey(screenBase.GetType()))  // 根据具体需求决定到底是直接销毁还是缓存
-            mTypeScreens.Remove(screenBase.GetType());
+        if (mTypeScreens.ContainsKey(screenName))  // 根据具体需求决定到底是直接销毁还是缓存
+            mTypeScreens.Remove(screenName);
+        ScreenBase screenBase = GetUI(screenName);
         screenBase.Dispose();
-
         if (screenBase.CtrlBase.mHideOtherScreenWhenThisOnTop)
         {
             ProcessUIOnTop();

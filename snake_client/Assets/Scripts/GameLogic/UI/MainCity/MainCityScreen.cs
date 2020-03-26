@@ -26,10 +26,11 @@ public class MainCityScreen : ScreenBase
 
     private void OnGuildClick()
     {
-        Singleton<UIManager>.GetInstance().OpenUI(typeof(GuildScreen));
+
+        Singleton<UIManager>.GetInstance().OpenUI(UIConst.UIGuild);
     }
     private void OnTaskClick()
     {
-        Singleton<UIManager>.GetInstance().OpenUI(typeof(TaskScreen));
+        Singleton<UIManager>.GetInstance().OpenUI(UIConst.UITask);
     }
 }

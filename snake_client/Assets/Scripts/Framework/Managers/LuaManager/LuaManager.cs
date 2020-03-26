@@ -29,15 +29,28 @@ public class LuaManager : BaseManager<LuaManager>
         return Singleton<SourceManager>.GetInstance().LoadCustomData(filepath, ".lua");
     }
 
-    public void StartUp()
+    public LuaTable NewTable() {
+        return this._luaEnv.NewTable();
+    }
+
+    public object[] DoString(byte[] chunk, string chunkName = "chunk", LuaTable env = null)
+    {
+        return this._luaEnv.DoString(chunk, chunkName, env);
+    }
+
+    public void StartUp(GameFacade gameFacade)
     {
         this._luaEnv.Global.Get<XLua.LuaFunction>("require").Call("StartUp");
         this._iLuaFramework = this.GetLuaInterface<ILuaFrameworkInterface>();
-        this._iLuaFramework.Launch();
+        this._iLuaFramework.Launch(gameFacade);
     }
 
-    public T GetLuaInterface<T>() where T : ILuaInterface
+    public T GetLuaInterface<T>(LuaTable luaTable = null, string tableName = null) where T : ILuaInterface
     {
-        return this._luaEnv.Global.Get<T>(typeof(T).Name);
+        if (luaTable == null)
+            luaTable = this._luaEnv.Global;
+        if (string.IsNullOrEmpty(tableName))
+            tableName = typeof(T).Name;
+        return luaTable.Get<T>(tableName);
     }
 }

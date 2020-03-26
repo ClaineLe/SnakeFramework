@@ -80,6 +80,7 @@ public static class ExampleConfig
                 "UnityEngine.UI",
                 "ILuaInterface",
                 "ILuaFrameworkInterface",
+                "ILuaScreenInterface",
             };
             var unityTypes = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
                               where !(assembly.ManifestModule is System.Reflection.Emit.ModuleBuilder)

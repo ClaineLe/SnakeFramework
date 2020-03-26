@@ -4,5 +4,5 @@ using System.Collections;
 [XLua.CSharpCallLua]
 public interface ILuaFrameworkInterface : ILuaInterface
 {
-    void Launch();
+    void Launch(GameFacade gameFacade);
 }

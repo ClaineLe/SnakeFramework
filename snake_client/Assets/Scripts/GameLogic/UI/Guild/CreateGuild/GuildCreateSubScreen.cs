@@ -25,6 +25,6 @@ public class GuildCreateSubScreen : SubScreenBase
 
     void OnCloseClick()
     {
-        Singleton<UIManager>.GetInstance().CloseUI(typeof(GuildScreen));
+        Singleton<UIManager>.GetInstance().CloseUI(UIConst.UIGuild);
     }
 }

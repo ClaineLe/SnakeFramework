@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameFacade : Singleton<GameFacade>
+public class GameFacade
 {
     public DataManager mDataMgr
     {
