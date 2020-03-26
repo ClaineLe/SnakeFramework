@@ -1,4 +1,4 @@
-ILuaScreenInterface = {
+ILuaPanelInterface = {
 	LoadSuccess = function (self, screenRoot, luaPath)
 		self:LoadSuccess(screenRoot, luaPath)
 	end,

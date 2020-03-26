@@ -51,21 +51,23 @@ public class ScreenBase
         Singleton<SourceManager>.GetInstance().LoadAsset<GameObject>("Prefabs/" + UIName, PanelLoadComplete);
     }
 
-    private ILuaScreenInterface screenInterface;
+    private ILuaPanelInterface panelInterface;
     private void BindLuaScreen() {
-        string luaFileName = string.Format("{0}Screen", this.mStrUIName);
-        string luaPath = string.Format("UI/Screen/{0}/{1}", this.mStrUIName, luaFileName);
+        string luaFileName = string.Format("{0}Panel", this.mStrUIName);
+        string luaPath = string.Format("UI/Panels/{0}/{1}", this.mStrUIName, luaFileName);
+        Debug.Log(luaPath);
         byte[] luaBytes = Singleton<SourceManager>.GetInstance().LoadCustomData(luaPath, ".lua");
         LuaManager luaMgr = Singleton<LuaManager>.GetInstance();
         luaMgr.DoString(luaBytes, this.mStrUIName);
-        screenInterface = luaMgr.GetLuaInterface<ILuaScreenInterface>(null, luaFileName);
-        screenInterface.LoadSuccess(this.mPanelRoot.gameObject, luaPath);
+        panelInterface = luaMgr.GetLuaInterface<ILuaPanelInterface>(null, luaFileName);
+        panelInterface.LoadSuccess(this.mPanelRoot.gameObject, luaPath);
     }
 
 
 
     private void PanelLoadComplete(GameObject go) 
     {
+        Debug.Log(go);
         this.mPanelRoot = GameObject.Instantiate(go, Singleton<UIManager>.GetInstance().GetCanvasRootTransform()).transform as RectTransform;
         this.mCtrlBase = this.mPanelRoot.GetComponent<UICtrlBase>();
         this.UpdateLayoutLevel();
@@ -90,7 +92,7 @@ public class ScreenBase
 
     virtual public void Dispose()
     {
-        screenInterface.Release();
+        panelInterface.Release();
         GameObject.Destroy(mPanelRoot.gameObject);
     }
 }

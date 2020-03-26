@@ -1,8 +1,13 @@
 require "Common.Utils"
 require "Common.Path"
+
+require "ConstDefine.UIConst"
+require "ConstDefine.PathConst"
+
 require "Interface.ILuaFrameworkInterface"
-require "Interface.ILuaScreenInterface"
-require "UI.UIBaseScreen"
-require "UI.UIConst"
+require "Interface.ILuaPanelInterface"
+
+require "UI.UIUnit"
+require "UI.UIPanel"
 
 require "Framework"

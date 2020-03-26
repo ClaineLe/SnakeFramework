@@ -870,7 +870,7 @@ GameObject:
   - component: {fileID: 8160839056878581876}
   - component: {fileID: 8160839056878581877}
   m_Layer: 5
-  m_Name: SubScreen
+  m_Name: SubPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

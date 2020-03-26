@@ -1,5 +1,5 @@
 local CSButton = CS.UnityEngine.UI.Button
-UIBaseScreen = {
+UIUtil = {
 	__path = nil,
 
 	mGameObject = nil,
@@ -9,10 +9,10 @@ UIBaseScreen = {
 	mListeners = nil,
 }
 
-setmetatable(UIBaseScreen, {__index = ILuaScreenInterface})
+setmetatable(UIUtil, {__index = ILuaPanelInterface})
 
 
-function UIBaseScreen:LoadSuccess( screenRoot, luaPath )
+function UIUtil:LoadSuccess( screenRoot, luaPath )
 	self.mGameObject = screenRoot
 	self.mTransform = screenRoot.transform
 	self.mListeners = {}
@@ -20,45 +20,45 @@ function UIBaseScreen:LoadSuccess( screenRoot, luaPath )
 	self.__path = luaPath
 	self:OnLoadSuccess()
 end
-function UIBaseScreen:Release( )
+function UIUtil:Release( )
 	self:OnRelease()
 	self:RemoveListeners()
 end
 
-function UIBaseScreen:OnLoadSuccess( )
+function UIUtil:OnLoadSuccess( )
 	-- body
 end
-function UIBaseScreen:OnRelease( )
+function UIUtil:OnRelease( )
 	-- body
 end
 
-function UIBaseScreen:get_transform( path )
+function UIUtil:get_transform( path )
 	return self.mTransform:Find(path)
 end
 
-function UIBaseScreen:add_button( path, handle)
+function UIUtil:add_button( path, func)
 	local node = self:get_transform(path)
 	if node then 
 		local btn = node:GetComponent(typeof(CSButton))
 		if btn then 
-			local handler = handler(handle, self)
+			local handler = handler(func, self)
 			table.insert(self.mListeners, {key = btn, value = handler})
 			btn.onClick:AddListener(handler)
 		end
 	end
 end
 
-function UIBaseScreen:get_subscreen( path, subScreenName)
+function UIUtil:get_subscreen( path, subScreenName)
 	local node = self:get_transform(path)
 	if node then
 		local subScreenName = path_get_filename_without_extension(path) 
-		local fullpath = string.format("UI.SubScreen.%s", subScreenName)
+		local fullpath = string.format(PathConst.UI_SCREEN_PATH, subScreenName)
 		local subScreen = require(fullpath)
 		subScreen:LoadSuccess(node, fullpath)
 	end
 end
 
-function UIBaseScreen:RemoveListeners( )
+function UIUtil:RemoveListeners( )
 	for i,v in ipairs(self.mListeners) do
 		v.key.onClick:RemoveListener(v.value)
 	end

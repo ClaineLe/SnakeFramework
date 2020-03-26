@@ -2,7 +2,7 @@
 using System.Collections;
 
 [XLua.CSharpCallLua]
-public interface ILuaScreenInterface : ILuaInterface
+public interface ILuaPanelInterface : ILuaInterface
 {
     void LoadSuccess(GameObject screenRoot, string luaPath);
 
