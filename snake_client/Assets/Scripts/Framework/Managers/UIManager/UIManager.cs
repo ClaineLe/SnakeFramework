@@ -6,7 +6,7 @@ using Type = System.Type;
 
 public class UIManager : BaseManager<UIManager>
 {
-    private Dictionary<string, ScreenBase> mTypeScreens;
+    private Dictionary<string, UIPanel> mTypeScreens;
 
     private GameObject uiRoot;
     private GameObject canvasRoot;
@@ -17,7 +17,7 @@ public class UIManager : BaseManager<UIManager>
     public override void Init()
     {
         base.Init();
-        this.mTypeScreens = new Dictionary<string, ScreenBase>();
+        this.mTypeScreens = new Dictionary<string, UIPanel>();
         Singleton<SourceManager>.GetInstance().LoadAsset<GameObject>("Prefabs/UIRoot", assetObj => {
             this.uiRoot = GameObject.Instantiate(assetObj);
             this.uiCamera = this.uiRoot.transform.Find("UICamera").GetComponent<Camera>();
@@ -45,8 +45,8 @@ public class UIManager : BaseManager<UIManager>
     }
          */
 
-    public void SetupMask(ScreenBase screenBase) {
-        if (screenBase == null || screenBase.CtrlBase == null)
+    public void SetupMask(UIPanel screenBase) {
+        if (screenBase == null)
             return;
 
         GameObject tmpMaskGo = GameObject.Instantiate(this.uiMask, screenBase.mPanelRoot);
@@ -62,29 +62,29 @@ public class UIManager : BaseManager<UIManager>
     public Transform GetCanvasRootTransform() {
         return this.canvasRoot.transform;
     }
-    public ScreenBase OpenUI(string screenName, UIOpenParamBase param = null)
+    public UIPanel OpenUI(string screenName)
     {
-        ScreenBase screenBase = this.GetUI(screenName);
+        UIPanel screenBase = this.GetUI(screenName);
         ++mUIOpenOrder;
 
         if (screenBase != null) {
-            if (screenBase != null && !screenBase.CtrlBase.ctrlCanvas.enabled) {
-                screenBase.CtrlBase.ctrlCanvas.enabled = true;
+            if (screenBase != null && !screenBase.ctrlCanvas.enabled) {
+                screenBase.ctrlCanvas.enabled = true;
             }
             return screenBase;
         }
-        screenBase = new ScreenBase(screenName, param);
+        screenBase = new UIPanel(screenName);
         this.mTypeScreens.Add(screenName, screenBase);
         screenBase.SetOpenOrder(mUIOpenOrder);
 
-        if (screenBase.CtrlBase.mHideOtherScreenWhenThisOnTop)
+        if (screenBase.mHideOtherScreenWhenThisOnTop)
         {
             ProcessUIOnTop();
         }
         return screenBase;
     }
 
-    private List<ScreenBase> tmpSortList = new List<ScreenBase>();
+    private List<UIPanel> tmpSortList = new List<UIPanel>();
     private void ProcessUIOnTop() {
         tmpSortList.Clear();
         foreach (var s in this.mTypeScreens.Values)
@@ -103,10 +103,10 @@ public class UIManager : BaseManager<UIManager>
         for (int i = 0; i < tmpSortList.Count; i++)
         {
             var tempC = tmpSortList[i];
-            if (tempC.CtrlBase.mHideOtherScreenWhenThisOnTop)
+            if (tempC.mHideOtherScreenWhenThisOnTop)
             {
                 // 找到第一个需要被隐藏的界面 隐藏就好
-                tempC.CtrlBase.ctrlCanvas.enabled = true;
+                tempC.ctrlCanvas.enabled = true;
                 index = i;// 因为是一个有序的List 所以找到第一个需要控制的界面之后记录序号，然后从它接着遍历即可
                 break;
             }
@@ -119,9 +119,9 @@ public class UIManager : BaseManager<UIManager>
             {
                 var tempC = tmpSortList[i];
                 // 找到第一个需要被隐藏的界面 隐藏就好
-                if (!tempC.CtrlBase.ctrlCanvas.enabled)
+                if (!tempC.ctrlCanvas.enabled)
                 {
-                    tempC.CtrlBase.ctrlCanvas.enabled = true;
+                    tempC.ctrlCanvas.enabled = true;
                     index = i;// 因为是一个有序的List 所以找到第一个需要控制的界面之后记录序号，然后从它接着遍历即可
                     break;
                 }
@@ -132,25 +132,25 @@ public class UIManager : BaseManager<UIManager>
         for (int i = index + 1; i < tmpSortList.Count; i++)
         {
             var tempC = tmpSortList[i];
-            if (!tempC.CtrlBase.mAlwaysShow)
+            if (!tempC.mAlwaysShow)
             {
                 // 找到需要被隐藏的界面 隐藏就好
-                tempC.CtrlBase.ctrlCanvas.enabled = false;
+                tempC.ctrlCanvas.enabled = false;
             }
         }
 
     }
 
-    public ScreenBase GetUI(string screenName)
+    public UIPanel GetUI(string screenName)
     {
-        ScreenBase screenBase = null;
+        UIPanel screenBase = null;
         if (mTypeScreens.TryGetValue(screenName, out screenBase))
             return screenBase;
         return null;
     }
     public bool CloseUI(string screenName)
     {
-        ScreenBase screenBase = GetUI(screenName);
+        UIPanel screenBase = GetUI(screenName);
         if (screenBase != null)
         {
             screenBase.OnClose();
@@ -158,7 +158,7 @@ public class UIManager : BaseManager<UIManager>
         }
         return false;
     }
-    public void AddUI(ScreenBase screenBase)
+    public void AddUI(UIPanel screenBase)
     {
         screenBase.mPanelRoot.SetParent(GetCanvasRootTransform());
 
@@ -174,12 +174,14 @@ public class UIManager : BaseManager<UIManager>
     public void RemoveUI(string screenName)
     {
         if (mTypeScreens.ContainsKey(screenName))  // 根据具体需求决定到底是直接销毁还是缓存
-            mTypeScreens.Remove(screenName);
-        ScreenBase screenBase = GetUI(screenName);
-        screenBase.Dispose();
-        if (screenBase.CtrlBase.mHideOtherScreenWhenThisOnTop)
         {
-            ProcessUIOnTop();
+            UIPanel screenBase = GetUI(screenName);
+            screenBase.Dispose();
+            if (screenBase.mHideOtherScreenWhenThisOnTop)
+            {
+                ProcessUIOnTop();
+            }
+            mTypeScreens.Remove(screenName);
         }
     }
 

@@ -14,9 +14,9 @@ public class TagAndLayerManager
     {
         // 先遍历枚举拿到枚举的字符串
         List<string> lstSceenPriority = new List<string>();
-        foreach (int v in Enum.GetValues(typeof(EScreenPriority)))
+        foreach (int v in Enum.GetValues(typeof(UIPriority)))
         {
-            lstSceenPriority.Add(Enum.GetName(typeof(EScreenPriority), v));
+            lstSceenPriority.Add(Enum.GetName(typeof(UIPriority), v));
         }
 
         // 清除数据
@@ -54,7 +54,7 @@ public class TagAndLayerManager
                     }
                     else if (dataPoint.name == "uniqueID")
                     {
-                        dataPoint.intValue = (int)Enum.Parse(typeof(EScreenPriority), s);
+                        dataPoint.intValue = (int)Enum.Parse(typeof(UIPriority), s);
                     }
                 }
             }

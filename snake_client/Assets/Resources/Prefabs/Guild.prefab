@@ -2596,7 +2596,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6748580497626363214}
-  - component: {fileID: 15782}
   - component: {fileID: 3564345473863309720}
   - component: {fileID: 76910353798281062}
   m_Layer: 5
@@ -2632,20 +2631,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &15782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3423769759361205874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0e387f756ddebd4db8d40cfc3a8ddac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btnClose: {fileID: 4928092025362651845}
-  btnJumpTask: {fileID: 2579034760640595711}
 --- !u!222 &3564345473863309720
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4861,7 +4846,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4996857337127752924}
-  - component: {fileID: 15783}
   - component: {fileID: 4331225291053522421}
   - component: {fileID: 6127959321952368576}
   m_Layer: 5
@@ -4899,23 +4883,6 @@ RectTransform:
   m_AnchoredPosition: {x: -22, y: -12}
   m_SizeDelta: {x: -780.1, y: -232.4}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &15783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7181668658086189656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff76395e17eeab04692a57af1851539e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btnCreate: {fileID: 7851799066172296915}
-  ipGuildName: {fileID: 1996998802493199494}
-  ipGuildDesc: {fileID: 6254495004451888769}
-  dpGuildNeed: {fileID: 2634519262195588087}
-  btnClose: {fileID: 7794643914116543721}
 --- !u!222 &4331225291053522421
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5320,7 +5287,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8160839055634331422}
-  - component: {fileID: 9204897140890927434}
   - component: {fileID: -6080972117581344356}
   - component: {fileID: 6196739444866873254}
   m_Layer: 5
@@ -5351,25 +5317,6 @@ RectTransform:
   m_AnchoredPosition: {x: 960, y: 540}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &9204897140890927434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8160839055634331418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b8506b43bd91b747b7eaf110cf29dbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ctrlCanvas: {fileID: 0}
-  screenPriority: 20
-  m_UseMask: 1
-  mAlwaysShow: 0
-  mHideOtherScreenWhenThisOnTop: 0
-  subCreate: {fileID: 15783}
-  subInfo: {fileID: 15782}
 --- !u!223 &-6080972117581344356
 Canvas:
   m_ObjectHideFlags: 0

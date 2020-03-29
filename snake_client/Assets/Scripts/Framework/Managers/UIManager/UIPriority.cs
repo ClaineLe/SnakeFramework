@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum EScreenPriority
+public enum UIPriority
 {
     Default = 0,   //大厅以下 预留 目前没有使用到
     PriorityLobby = 10,   //大厅层
@@ -12,6 +12,5 @@ public enum EScreenPriority
     PriorityLobbyForLoading = 60, //各种loading页面层级
     PriorityUpLoadingCommonMessageBoxTips = 70, //游戏中各种通用弹框层级（高于loading页面）
     PriorityLobbyForNewPlayerGuide = 80, //游戏中新手指引层级
-
     //PriorityCount = 100
 };

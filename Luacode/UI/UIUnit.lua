@@ -1,9 +1,9 @@
 local CSButton = CS.UnityEngine.UI.Button
 UIUtil = {
+	mCsPanel = nil,
 	__path = nil,
 
 	mGameObject = nil,
-	mTransform = nil,
 	mRectTransform = nil,
 
 	mListeners = nil,
@@ -12,9 +12,11 @@ UIUtil = {
 setmetatable(UIUtil, {__index = ILuaPanelInterface})
 
 
-function UIUtil:LoadSuccess( screenRoot, luaPath )
-	self.mGameObject = screenRoot
-	self.mTransform = screenRoot.transform
+function UIUtil:LoadSuccess( csPanel, luaPath )
+	self.mCsPanel = csPanel
+
+	self.mRectTransform = csPanel.mPanelRoot
+	self.mGameObject = csPanel.mPanelRoot.gameObject
 	self.mListeners = {}
 
 	self.__path = luaPath
@@ -33,7 +35,7 @@ function UIUtil:OnRelease( )
 end
 
 function UIUtil:get_transform( path )
-	return self.mTransform:Find(path)
+	return self.mRectTransform:Find(path)
 end
 
 function UIUtil:add_button( path, func)

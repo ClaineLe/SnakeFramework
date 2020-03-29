@@ -1,3 +1,4 @@
+
 MainCityPanel = {
 
 }
@@ -14,8 +15,9 @@ function MainCityPanel:OnRelease( )
 end
 
 function MainCityPanel:OnClickGuild( )
-	print("MainCityPanel:OnClickGuild")
+	local guildPanel = GameFacade.mUiMgr:OpenUI(UIConst.UIGuild)
 end
+
 function MainCityPanel:OnClickTask( )
-	self:RemoveListeners()
+	local taskPanel = GameFacade.mUiMgr:OpenUI(UIConst.UITask)
 end

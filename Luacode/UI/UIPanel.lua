@@ -3,11 +3,30 @@ UIPanel = {
 }
 
 setmetatable(UIPanel, {__index = UIUtil})
+--setmetatable(UIPanel, {__index = events})
 
 function UIPanel:OnLoadSuccess( )
-	-- body
 end
 
 function UIPanel:OnRelease( )
-	-- body
+end
+
+function UIPanel:OnClose( )
+	self.mCsPanel:OnClose()
+end
+
+function UIPanel:GetPriority( )
+	return UIPriority.PriorityLobbyForSystem
+end
+
+function UIPanel:GetUseMask( )
+	return false
+end
+
+function UIPanel:GetAlwaysShow( )
+	return false
+end
+
+function UIPanel:GetHideOtherScreenWhenThisOnTop( )
+	return false
 end
