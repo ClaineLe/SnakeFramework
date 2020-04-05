@@ -9,4 +9,6 @@ require "UI.Bases.UIPriority"
 require "UI.Bases.UIComponent"
 require "UI.Bases.UIPanel"
 
+require "Quick.ui"
+
 require "Framework"

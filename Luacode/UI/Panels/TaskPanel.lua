@@ -14,7 +14,6 @@ function TaskPanel:OnInitPanel( )
 end
 
 function TaskPanel:OnReleasePanel( )
-	print("TaskPanel:OnReleasePanel")
 end
 
 function TaskPanel:OnCloseClick( )

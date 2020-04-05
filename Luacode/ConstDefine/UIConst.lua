@@ -1,5 +1,5 @@
 UIConst = {
-	UIMainCity  = "MainCity",   --主城
-    UIGuild     = "Guild",      --工会
-    UITask      = "Task",       --任务
+	MainCity  = "MainCity",   --主城
+    Guild     = "Guild",      --工会
+    Task      = "Task",       --任务
 }

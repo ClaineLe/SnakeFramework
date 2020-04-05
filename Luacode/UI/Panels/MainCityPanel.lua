@@ -16,9 +16,9 @@ end
 
 
 function MainCityPanel:OnClickGuild( )
-	local guildPanel = GameFacade.mUiMgr:OpenUI(UIConst.UIGuild)
+	local guildPanel = ui.open(UIConst.Guild)
 end
 
 function MainCityPanel:OnClickTask( )
-	local taskPanel = GameFacade.mUiMgr:OpenUI(UIConst.UITask)
+	local taskPanel = ui.open(UIConst.Task)
 end
