@@ -2,7 +2,7 @@ Framework = {
 
 }
 
-function Framework.Launch(gameFacade)
+function Framework.Launch(self, gameFacade)
 	GameFacade = gameFacade
 	local mainCityPanel = GameFacade.mUiMgr:OpenUI(UIConst.UIMainCity)
 end

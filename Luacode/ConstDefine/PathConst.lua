@@ -1,3 +1,3 @@
 PathConst = {
-	UI_SCREEN_PATH = "UI.SubPanels.%s",
+	UI_COMPONENT_PATH = "UI.Components.%s",
 }

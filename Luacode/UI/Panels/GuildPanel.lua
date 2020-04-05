@@ -1,18 +1,20 @@
 GuildPanel = {
-
+	subPanel = nil,
 }
 
 setmetatable(GuildPanel, {__index = UIPanel})
 
-function GuildPanel:OnLoadSuccess( )
+function GuildPanel:OnCreatePanel( ) end
+function GuildPanel:OnReleasePanel( ) end
+
+
+function GuildPanel:OnInitPanel( )
 	self:add_button("CreateGuild/btnClose", self.OnCloseClick)
 	self:add_button("GuildInfo/btnClose", self.OnCloseClick)
-end
-
-function GuildPanel:OnRelease( )
+	self.subPanel = self:get_subscreen("SubPanel")
 end
 
 
 function GuildPanel:OnCloseClick( )
-	self:OnClose()
+	self:Close()
 end

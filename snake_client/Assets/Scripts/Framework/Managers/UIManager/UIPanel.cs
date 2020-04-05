@@ -11,10 +11,10 @@ public class UIPanel
 
     private ILuaPanelInterface panelInterface;
 
-    public int mPriority { get => this.panelInterface.GetPriority(); }
-    public bool mUseMask { get => this.panelInterface.GetUseMask(); }
-    public bool mAlwaysShow { get => this.panelInterface.GetAlwaysShow(); }
-    public bool mHideOtherScreenWhenThisOnTop { get => this.panelInterface.GetHideOtherScreenWhenThisOnTop(); }
+    public int mPriority { get => this.panelInterface.mPriority; }
+    public bool mUseMask { get => this.panelInterface.mUseMask; }
+    public bool mAlwaysShow { get => this.panelInterface.mAlwaysShow; }
+    public bool mHideOtherScreenWhenThisOnTop { get => this.panelInterface.mHideOtherScreenWhenThisOnTop; }
 
     public Canvas ctrlCanvas { get; private set; }
 
@@ -53,30 +53,28 @@ public class UIPanel
     {
         this.mStrUIName = UIName;
         string luaFileName = string.Format("{0}Panel", this.mStrUIName);
-        mLuaPath = string.Format("UI/Panels/{0}/{1}", this.mStrUIName, luaFileName);
+        mLuaPath = string.Format("UI/Panels/{0}Panel", this.mStrUIName);
         byte[] luaBytes = Singleton<SourceManager>.GetInstance().LoadCustomData(mLuaPath, ".lua");
         LuaManager luaMgr = Singleton<LuaManager>.GetInstance();
         luaMgr.DoString(luaBytes, this.mStrUIName);
-        Debug.Log("luaFileName:" + luaFileName);
         panelInterface = luaMgr.GetLuaInterface<ILuaPanelInterface>(null, luaFileName);
+        panelInterface.CreatePanel();
         Singleton<SourceManager>.GetInstance().LoadAsset<GameObject>("Prefabs/" + this.mStrUIName, PanelLoadComplete);
     }
 
 
     private void PanelLoadComplete(GameObject go) 
     {
-        Debug.Log(go);
         this.mPanelRoot = GameObject.Instantiate(go, Singleton<UIManager>.GetInstance().GetCanvasRootTransform()).transform as RectTransform;
         this.ctrlCanvas = this.mPanelRoot.GetComponent<Canvas>();
         this.UpdateLayoutLevel();
-        panelInterface.LoadSuccess(this, mLuaPath);
+        panelInterface.OnLoadSuccess(this);
         if (mUseMask)
             Singleton<UIManager>.GetInstance().SetupMask(this);
         Singleton<UIManager>.GetInstance().AddUI(this);
     }
 
-    public void OnClose()
-    {
+    public void OnClose(){
         Singleton<UIManager>.GetInstance().RemoveUI(this.mStrUIName);
     }
 
@@ -86,7 +84,7 @@ public class UIPanel
 
     public void Dispose()
     {
-        panelInterface.Release();
+        panelInterface.ReleasePanel();
         GameObject.Destroy(mPanelRoot.gameObject);
     }
 }

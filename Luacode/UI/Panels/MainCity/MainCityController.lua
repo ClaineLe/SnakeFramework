@@ -1,5 +1,0 @@
-local MainCityController = {
-
-}
-
-return MainCityController

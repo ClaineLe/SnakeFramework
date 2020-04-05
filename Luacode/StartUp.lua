@@ -4,13 +4,9 @@ require "Common.Path"
 require "ConstDefine.UIConst"
 require "ConstDefine.PathConst"
 
-require "Interface.ILuaFrameworkInterface"
-require "Interface.ILuaPanelInterface"
+require "UI.Bases.UIUnit"
+require "UI.Bases.UIPriority"
+require "UI.Bases.UIComponent"
+require "UI.Bases.UIPanel"
 
-Dispatcher = require "Tools.EventDispatcher"
-
-require "UI.UIUnit"
-require "UI.UIPriority"
-require "UI.UIController"
-require "UI.UIPanel"
 require "Framework"

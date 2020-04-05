@@ -4,16 +4,13 @@ using System.Collections;
 [XLua.CSharpCallLua]
 public interface ILuaPanelInterface : ILuaInterface
 {
-    void LoadSuccess(UIPanel uiPanel, string luaPath);
+    void CreatePanel();
+    void OnLoadSuccess(UIPanel panel);
+    void ReleasePanel();
 
-    void Release();
-
-    int GetPriority();
+    int mPriority { get; }
+    bool mUseMask { get; }
+    bool mAlwaysShow { get; }
+    bool mHideOtherScreenWhenThisOnTop { get; }
     
-    bool GetUseMask();
-    
-    bool GetAlwaysShow();
-    
-    bool GetHideOtherScreenWhenThisOnTop();
-
 }

@@ -41,7 +41,7 @@ public class LuaManager : BaseManager<LuaManager>
     public void StartUp(GameFacade gameFacade)
     {
         this._luaEnv.Global.Get<XLua.LuaFunction>("require").Call("StartUp");
-        this._iLuaFramework = this.GetLuaInterface<ILuaFrameworkInterface>();
+        this._iLuaFramework = this.GetLuaInterface<ILuaFrameworkInterface>(null, "Framework");
         this._iLuaFramework.Launch(gameFacade);
     }
 
