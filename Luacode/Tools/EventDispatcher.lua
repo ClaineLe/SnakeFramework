@@ -1,5 +1,15 @@
 --[[
 
+EventDispatcher.on
+EventDispatcher.once
+EventDispatcher.emit
+EventDispatcher.remove
+
+EventDispatcher.has
+EventDispatcher.release
+EventDispatcher.print
+
+
 EventDispatcher.lua
 
 Provides custom event broadcaster/listener mechanism to regular Lua objects.
@@ -122,6 +132,8 @@ function EventDispatcher:hasEventListener(eventName, listener)
 	return false
 end
 
+EventDispatcher.has = EventDispatcher.hasEventListener
+
 ---------------------------------------------------------------------------
 
 --- Adds a listener for the event eventName. Optional runs once flag.
@@ -219,7 +231,7 @@ function EventDispatcher:removeEventListener(eventName, listener)
 	end
 	return found
 end
-
+EventDispatcher.remove = EventDispatcher.removeEventListener
 ---------------------------------------------------------------------------
 
 --- Removes all listeners with the eventName event from the event dispatcher.
@@ -252,7 +264,7 @@ function EventDispatcher:removeAllListeners(eventName)
 		return found, n
 	end
 end
-
+EventDispatcher.release = EventDispatcher.removeAllListeners
 ---------------------------------------------------------------------------
 
 --- Prints the content of the _listeners array (for debugging).
@@ -267,10 +279,10 @@ function EventDispatcher:printListeners()
 		end
 	end
 end
-
+EventDispatcher.print = EventDispatcher.printListeners
 ---------------------------------------------------------------------------
 
 -- Create syntactic sugar to automatically call init().
 setmetatable(EventDispatcher, { __call = function(_, ...) return EventDispatcher:init(...) end })
 
-return EventDispatcher()
+return EventDispatcher

@@ -7,6 +7,7 @@ setmetatable(TaskPanel, {__index = UIPanel})
 
 function TaskPanel:OnCreatePanel( )
 	self.mPriority = UIPriority.PriorityLobbyForNewPlayerGuide
+	self.mHideOtherScreenWhenThisOnTop = true
 end
 
 function TaskPanel:OnInitPanel( )
