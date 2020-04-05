@@ -1,4 +1,5 @@
 UIComponent = {
+	panel = nil,
 }
 
 setmetatable(UIComponent, {__index = UIUtil})
@@ -9,7 +10,8 @@ function UIComponent:OnInitComponent( ) end
 function UIComponent:OnReleaseComponent( ) end
 
 
-function UIComponent:CreateComponent( rectTransform )
+function UIComponent:CreateComponent( rectTransform, panel )
+	self.panel = panel
 	self:OnCreateComponent()
 	self:SetupUtil(rectTransform)
 	self:OnInitComponent()
